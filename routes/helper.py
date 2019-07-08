@@ -6,11 +6,22 @@ from flask import session, request, abort, redirect, url_for
 
 from models.topic import Topic
 from models.user import User
-from routes import current_user
 from utils import log
 import json
 import redis
 cache = redis.StrictRedis()
+
+
+def current_user():
+    session_id = request.cookies.get('session', -1)
+    log('session_id', session_id)
+    user_id = json.loads(cache.get(session_id))
+    log('user_id', user_id)
+    if int(user_id) == -1:
+        u = User.one(id=1)
+    else:
+        u = User.one(id=user_id)
+    return u
 
 
 def login_required(route_function):
@@ -81,7 +92,7 @@ def new_csrf_token():
 
 
 def session_user(id):
-    session_id = str(uuid.uuid4())
+    session_id = 'user' + str(uuid.uuid4())
     user_id = id
     cache.set(session_id, user_id)
     return session_id

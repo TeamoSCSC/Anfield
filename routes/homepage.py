@@ -7,10 +7,10 @@ from flask import (
 )
 
 from models.board import Board
-from routes import current_user
+
 
 from models.topic import Topic
-from routes.helper import new_csrf_token
+from routes.helper import new_csrf_token, current_user
 
 main = Blueprint('homepage', __name__)
 

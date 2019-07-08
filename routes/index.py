@@ -71,7 +71,7 @@ def login():
         # session['user_id'] = u.id
         # 设置 cookie 有效期为 永久
         # session.permanent = True
-        session_id = 'user{}'.format(session_user(u.id))
+        session_id = session_user(u.id)
         res = current_app.make_response(flask.redirect(url_for('homepage.index')))
         res.set_cookie('session', session_id)
         # return redirect(url_for('homepage.index'))

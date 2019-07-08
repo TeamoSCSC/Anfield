@@ -12,7 +12,7 @@ from routes import current_user
 from models.reply import Reply
 
 
-main = Blueprint('reply', __name__)
+main = Blueprint('route_reply', __name__)
 
 
 def users_from_content(content):
@@ -62,5 +62,5 @@ def add():
     u = current_user()
     print('DEBUG', form)
     m = Reply.add(form, user_id=u.id)
-    return redirect(url_for('topic.detail', id=m.topic_id))
+    return redirect(url_for('route_topic.detail', id=m.topic_id))
 

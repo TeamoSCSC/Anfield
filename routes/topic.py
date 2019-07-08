@@ -10,9 +10,14 @@ from models.board import Board
 from routes import current_user
 
 from models.topic import Topic
-from routes.helper import csrf_required, login_required, new_csrf_token
+from routes.helper import (
+    csrf_required,
+    login_required,
+    new_csrf_token,
+    topic_owner,
+)
 
-main = Blueprint('topic', __name__)
+main = Blueprint('route_topic', __name__)
 
 
 @main.route("/")
@@ -35,6 +40,7 @@ def detail(id):
 
 @main.route("/delete")
 @csrf_required
+@topic_owner
 @login_required
 def delete():
     u = current_user()

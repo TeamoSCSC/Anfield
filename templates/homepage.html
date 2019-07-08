@@ -68,11 +68,11 @@
                                      title="{{ t.user().username }}">
                             </a>
                             <div class="topic_title_wrapper">
-                                <a class="topic_title" href="{{ url_for('topic.detail', id=t.id) }}">
+                                <a class="topic_title" href="{{ url_for('route_topic.detail', id=t.id) }}">
                                     {{ t.title }}
                                 </a>
                                 <span>{{ t.replies() | count }} / {{ t.views }}</span>
-                                <a class="topic_title" href="{{ url_for('topic.delete', id=t.id, token=token) }}">
+                                <a class="topic_title" href="{{ url_for('route_topic.delete', id=t.id, token=token) }}">
                                     删除
                                 </a>
                                 {# count(t.replies()) #}

@@ -108,3 +108,8 @@ $RECYCLE.BIN/
 # deploy
 secret.py
 deploy.sh
+Anfield.conf
+Anfield.nginx
+web19.conf
+wsgi.py
+database_secret.conf
