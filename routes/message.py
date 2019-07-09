@@ -9,23 +9,26 @@ from flask import (
 from routes import *
 
 from models.message import Messages
-main = Blueprint('mail', __name__)
+main = Blueprint('route_mail', __name__)
 
 
 @main.route("/add", methods=["POST"])
 def add():
     form = request.form.to_dict()
     u = current_user()
-    receiver_id = int(form['receiver_id'])
-    # 发邮件
-    Messages.send(
-        title=form['title'],
-        content=form['content'],
-        sender_id=u.id,
-        receiver_id=receiver_id
-    )
-
-    return redirect(url_for('.index'))
+    receiver = User.one(username=form['receiver'])
+    if receiver is not None:
+        # 发邮件
+        receiver_id = receiver.id
+        Messages.send(
+            title=form['title'],
+            content=form['content'],
+            sender_id=u.id,
+            receiver_id=receiver_id
+        )
+        return redirect(url_for('.index'))
+    else:
+        return redirect(url_for('.index'))
 
 
 @main.route('/')
@@ -39,6 +42,7 @@ def index():
         'mail/index.html',
         send=send,
         received=received,
+        user=u,
     )
     return t
 

@@ -7,7 +7,6 @@ from flask import (
 )
 
 from models.board import Board
-from routes import current_user
 
 from models.topic import Topic
 from routes.helper import (
@@ -15,6 +14,7 @@ from routes.helper import (
     login_required,
     new_csrf_token,
     topic_owner,
+    current_user,
 )
 
 main = Blueprint('route_topic', __name__)

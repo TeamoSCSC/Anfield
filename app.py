@@ -9,16 +9,12 @@ from flask import (
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 
-# web framework
-# web application
-# __main__
 import secret
 from models.base_model import db
 from models.board import Board
 from models.reply import Reply
 from models.topic import Topic
 from models.user import User, UserRole
-from routes import index
 from routes.helper import current_user
 from utils import log
 

@@ -9,7 +9,7 @@ from utils import log
 
 
 def current_user():
-    session_id = request.cookies.get('session', -1)
+    session_id = request.cookies.get('cache_session', -1)
     log('session_id', session_id)
     user_id = json.loads(cache.get(session_id))
     log('user_id', user_id)

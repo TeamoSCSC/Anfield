@@ -1,5 +1,6 @@
 from time import sleep
 
+from flask import url_for, redirect
 from marrow.mailer import Mailer
 from sqlalchemy import Column, Unicode, UnicodeText, Integer
 
@@ -62,3 +63,12 @@ class Messages(SQLMixin, db.Model):
             to=receiver.email,
             content='站内信通知：\n {}'.format(content),
         )
+        return redirect(url_for('route_mail.index'))
+
+    def get_sender(self):
+        u = User.one(id=self.sender_id)
+        return u
+
+    def get_receiver(self):
+        u = User.one(id=self.receiver_id)
+        return u

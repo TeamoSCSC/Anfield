@@ -7,10 +7,8 @@ from flask import (
 
 from models.message import Messages
 from models.user import User
-from routes import current_user
-
 from models.reply import Reply
-
+from routes.helper import current_user
 
 main = Blueprint('route_reply', __name__)
 

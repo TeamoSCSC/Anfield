@@ -14,8 +14,7 @@ from flask import (
 from werkzeug.datastructures import FileStorage
 
 from models.user import User
-from routes import current_user
-from routes.helper import session_user, cache
+from routes.helper import session_user, cache, current_user
 
 from utils import log
 

@@ -1,15 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>邮件详情</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}私信页面{% endblock %}
+{% block main %}
 
-<p>发件人 id: {{ message.sender_id }}</p>
-<p>收件人 id: {{ message.receiver_id }}</p>
-<p>内容</p>
-<p>{{ message.content }}</p>
+<div id="main">
+    <div id="content">
+        <div class='panel'>
+            <div class='header topic_header'>
+        <span class="topic_full_title">
+			{{ message.title }}
+      	</span>
+                <div class="changes">
+            <span>
+                收件人 {{ message.get_receiver().username }}
+                私信于 {{ message.created_time | format_time }}
+            </span>
+                    <span>
+                来源于
+                <a href="{{ url_for('personal.index', id=message.sender_id) }}">{{ message.get_sender().username }}</a>
+        	</span>
+                </div>
+            </div>
 
-</body>
-</html>
+            <div class='inner topic'>
+                <div class='topic_content'>
+                    <div class="markdown-text">
+                        {{ message.content }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
