@@ -64,3 +64,11 @@ class User(SQLMixin, db.Model):
             return user
         else:
             return None
+
+    @staticmethod
+    def guest():
+        u = User()
+        u.username = '游客'
+        u.password = ''
+        return u
+

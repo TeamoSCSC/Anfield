@@ -18,10 +18,14 @@ def current_user():
     user_id = json.loads(cache.get(session_id))
     log('user_id', user_id)
     if int(user_id) == -1:
-        u = User.one(id=1)
+        u = User.guest()
+        return u
     else:
         u = User.one(id=user_id)
-    return u
+        if u is None:
+            return User.guest()
+        else:
+            return u
 
 
 def login_required(route_function):
