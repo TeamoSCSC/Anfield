@@ -43,7 +43,7 @@
         </div>
         <div class="panel">
             <div class="inner">
-                <a href="{{ url_for('topic.new') }}" id="create_topic_btn">
+                <a href="{{ url_for('route_topic.new') }}" id="create_topic_btn">
                     <span class="span-success">发布话题</span>
                 </a>
             </div>
@@ -75,7 +75,7 @@
             {% for t in ms %}
                 <div class="cell">
 
-                    <a class="user_avatar pull-left" href="{{ url_for('topic.detail', id=t.id) }}">
+                    <a class="user_avatar pull-left" href="{{ url_for('route_topic.detail', id=t.id) }}">
                         <img src="{{ user.image }}"
                              title="{{ user.username }}">
                     </a>
@@ -99,7 +99,7 @@
                     <div class="topic_title_wrapper">
 
 
-                        <a class="topic_title" href="{{ url_for('topic.detail', id=t.id) }}" title="{{ t.title }}">
+                        <a class="topic_title" href="{{ url_for('route_topic.detail', id=t.id) }}" title="{{ t.title }}">
                             {{ t.title }}
                         </a>
                     </div>
@@ -138,7 +138,7 @@
                     <div class="topic_title_wrapper">
 
 
-                        <a class="topic_title" href="{{ url_for('topic.detail', id=r.id) }}" title="{{ r.title }}">
+                        <a class="topic_title" href="{{ url_for('route_topic.detail', id=r.id) }}" title="{{ r.title }}">
                             {{ r.title }}
                         </a>
                     </div>

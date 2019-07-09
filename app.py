@@ -1,6 +1,11 @@
 import time
 
-from flask import Flask
+from flask import (
+    Flask,
+    url_for,
+    Response,
+    abort,
+)
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 
@@ -14,6 +19,7 @@ from models.reply import Reply
 from models.topic import Topic
 from models.user import User
 from routes import index
+from routes.helper import current_user
 from utils import log
 
 """
@@ -41,7 +47,13 @@ def count(input):
 
 
 class UserModelView(ModelView):
-    column_searchable_list = ('username', 'password')
+    def is_accessible(self):
+        u = current_user()
+        if u.id == 1:
+            return url_for('admin.index')
+        else:
+            return abort(Response('没有权限'))
+    # column_searchable_list = ('username', 'password')
 
 
 def format_time(unix_timestamp):
@@ -55,7 +67,7 @@ def configured_app():
     app = Flask(__name__)
     # 设置 secret_key 来使用 flask 自带的 session
     # 这个字符串随便设置什么内容都可以
-    # app.secret_key = secret.secret_key
+    app.secret_key = secret.secret_key
     # 数据返回顺序
     # mysql -> pymysql -> sqlalchemy -> route
     # 初始化顺序
@@ -80,10 +92,10 @@ def configured_app():
     app.errorhandler(404)(not_found)
 
     admin = Admin(app, name='Anfield', template_mode='bootstrap3')
-    admin.add_view(ModelView(User, db.session))
-    admin.add_view(ModelView(Topic, db.session))
-    admin.add_view(ModelView(Reply, db.session))
-    mv = ModelView(Board, db.session)
+    admin.add_view(UserModelView(User, db.session))
+    admin.add_view(UserModelView(Topic, db.session))
+    admin.add_view(UserModelView(Reply, db.session))
+    mv = UserModelView(Board, db.session)
     admin.add_view(mv)
     # Add administrative views here
 
