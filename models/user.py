@@ -7,10 +7,10 @@ from models import Model
 from models.base_model import SQLMixin, db
 
 
-# class UserRole(Enum):
-#     guest = auto()
-#     normal = auto()
-#     admin = auto()
+class UserRole():
+    guest = 'guest'
+    normal = 'normal'
+    admin = 'admin'
 
 
 class User(SQLMixin, db.Model):
@@ -24,7 +24,7 @@ class User(SQLMixin, db.Model):
     image = Column(String(100), nullable=False, default='/images/3f710775-20e9-4d99-9f82-3ef4f735e3f1.jpg')
     signature = Column(String(100), nullable=False, default='无')
     email = Column(String(50), nullable=False, default=config.test_mail)
-    # role = Column(String(255), nullable=False, default=UserRole.normal)
+    role = Column(String(255), nullable=False, default=UserRole.normal)
 
     @classmethod
     def salted_password(cls, password, salt='$!@><?>HUI&DWQa`'):

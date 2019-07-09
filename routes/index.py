@@ -73,7 +73,7 @@ def login():
         # session.permanent = True
         session_id = session_user(u.id)
         res = current_app.make_response(flask.redirect(url_for('homepage.index')))
-        res.set_cookie('session', session_id)
+        res.set_cookie('cache_session', session_id)
         # return redirect(url_for('homepage.index'))
         return res
 

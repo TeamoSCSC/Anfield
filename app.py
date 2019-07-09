@@ -17,7 +17,7 @@ from models.base_model import db
 from models.board import Board
 from models.reply import Reply
 from models.topic import Topic
-from models.user import User
+from models.user import User, UserRole
 from routes import index
 from routes.helper import current_user
 from utils import log
@@ -49,7 +49,7 @@ def count(input):
 class UserModelView(ModelView):
     def is_accessible(self):
         u = current_user()
-        if u.id == 1:
+        if u.role == UserRole.admin:
             return url_for('admin.index')
         else:
             return abort(Response('没有权限'))
