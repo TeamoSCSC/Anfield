@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" href="https://static2.cnodejs.org/public/images/cnode_icon_32.png" type="image/x-icon">
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
 <head>
@@ -12,6 +13,12 @@
 <div class='navbar'>
   <div class='navbar-inner'>
     <div class='container'>
+        <a class="brand" href="https://cnodejs.org/">
+
+                <img src="/images/logo2.png">
+
+        </a>
+
         <form id="search_form" class="navbar-search" action="{{ url_for('homepage.search') }}">
         <input type="text" id="content" name="content" class="search-query span3" value="">
         </form>

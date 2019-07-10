@@ -45,7 +45,14 @@ main = Blueprint('index', __name__)
 def index():
     # u = current_user()
     # return render_template("index.html", user=u)
-    return render_template("index.html")
+    return render_template("login.html")
+
+
+@main.route("/rg")
+def rg():
+    # u = current_user()
+    # return render_template("index.html", user=u)
+    return render_template("register.html")
 
 
 @main.route("/register", methods=['POST'])
@@ -75,24 +82,6 @@ def login():
         res.set_cookie('cache_session', session_id)
         # return redirect(url_for('homepage.index'))
         return res
-
-
-@main.route('/profile')
-def profile():
-    u = current_user()
-    if u is None:
-        return redirect(url_for('.index'))
-    else:
-        return render_template('profile.html', user=u)
-
-
-@main.route('/user/<int:id>')
-def user_detail(id):
-    u = User.one(id=id)
-    if u is None:
-        abort(404)
-    else:
-        return render_template('profile.html', user=u)
 
 
 @main.route('/image/add', methods=['POST'])

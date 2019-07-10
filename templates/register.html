@@ -53,13 +53,13 @@
         <div class="panel">
             <div class="header">
                 <ul class="breadcrumb">
-                    <li><a >登录</a><span class="divider">/</span></li>
-                    <li><a href="{{ url_for('index.rg')}}">注册</a></li>
+                    <li><a href="{{ url_for('index.index') }}">登录</a><span class="divider">/</span></li>
+                    <li><a >注册</a></li>
                 </ul>
             </div>
             <div class="inner">
 
-                <form id="signin_form" class="form-horizontal" action="{{ url_for('.login') }}" method="post">
+                <form id="signin_form" class="form-horizontal" action="{{ url_for('.register') }}" method="post">
                     <div class="control-group">
                         <label class="control-label">用户名</label>
                         <div class="controls">
@@ -75,22 +75,7 @@
                     <input type="hidden" name="_csrf" value="nx3HzVnk-PBWDg21SfnKX5vU2sweNZ4QX_hw">
 
                     <div class="form-actions">
-                        <input type="submit" class="span-primary" value="登录">
-                    </div>
-                </form>
-
-                <form id="signin_form" class="form-horizontal" method="post" action="{{ url_for('reset.reset_send_mail') }}">
-                    <div class="header">
-                        <span class="col_fade">忘记密码?</span>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">用户名</label>
-                        <div class="controls">
-                            <input type="text" class="input-xlarge" name="username">
-                        </div>
-                    </div>
-                    <div class="form-actions">
-                        <input type="submit" class="span-primary" value="提交">
+                        <input type="submit" class="span-primary" value="注册">
                     </div>
                 </form>
 

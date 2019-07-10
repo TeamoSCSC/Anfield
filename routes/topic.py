@@ -21,13 +21,6 @@ from routes.helper import (
 main = Blueprint('route_topic', __name__)
 
 
-@main.route("/")
-def index():
-    ms = Topic.all()
-    u = current_user()
-    return render_template("topic/index.html", ms=ms, user=u)
-
-
 @main.route('/<int:id>')
 def detail(id):
     # id = int(request.args['id'])
