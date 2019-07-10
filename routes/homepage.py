@@ -36,7 +36,7 @@ def search():
     ts = Topic.all()
     ms = []
     for topic in ts:
-        if content in topic.content:
+        if content in topic.title:
             ms.append(topic)
     token = new_csrf_token()
     bs = Board.all()
