@@ -17,22 +17,18 @@ main = Blueprint('personal', __name__)
 
 @main.route("/<int:id>")
 def index(id):
-    u = current_user()
-    if u.id == id:
-        m = Topic.all(user_id=id)
-        r = Reply.all(user_id=id)
-        r.sort(key=lambda r: r.created_time, reverse=True)
-        m.sort(key=lambda m: m.created_time, reverse=True)
-        rm = []
-        for i in r:
-            n = Topic.one(id=i.topic_id)
-            setattr(n, 'reply_time', i.created_time)
-            # n.reply_time = i.created_time
-            rm.append(n)
-        u = User.one(id=id)
-        return render_template("personal.html", ms=m, rs=rm, user=u)
-    else:
-        return redirect(url_for('homepage.index'))
+    m = Topic.all(user_id=id)
+    r = Reply.all(user_id=id)
+    r.sort(key=lambda r: r.created_time, reverse=True)
+    m.sort(key=lambda m: m.created_time, reverse=True)
+    rm = []
+    for i in r:
+        n = Topic.one(id=i.topic_id)
+        setattr(n, 'reply_time', i.created_time)
+        # n.reply_time = i.created_time
+        rm.append(n)
+    u = User.one(id=id)
+    return render_template("personal.html", ms=m, rs=rm, user=u)
 
 
 @main.route("/<int:id>/edit")

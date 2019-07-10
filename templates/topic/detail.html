@@ -46,6 +46,10 @@
             {% set u = r.user() %}
             <div class='cell reply_area reply_item'>
                 <div class='user_info'>
+                    <a class="user_avatar pull-left" href="{{ url_for('personal.index', id=u.id) }}">
+                                <img src="{{ u.image }}"
+                                     title="{{ u.username }}">
+                    </a>
                     <a class='dark reply_author'>
                         {{ u.username }}
                     </a>
@@ -65,6 +69,7 @@
                 </div>
                 <div class='reply_content from-leiwei1991'>
                     <div class="markdown-text">{{ r.content }}</div>
+                    <a href="{{ url_for('route_reply.delete', reply_id=r.id, topic_id=topic.id, token=token) }}">删除评论</a>
                 </div>
             </div>
         {% endfor %}

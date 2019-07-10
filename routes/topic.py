@@ -33,10 +33,11 @@ def detail(id):
     # id = int(request.args['id'])
     # http://localhost:3000/topic/1
     # m = Topic.one(id=id)
+    token = new_csrf_token()
     m = Topic.get(id)
     u = current_user()
 
-    return render_template("topic/detail.html", topic=m, user=u)
+    return render_template("topic/detail.html", topic=m, user=u, token=token)
 
 
 @main.route("/delete")

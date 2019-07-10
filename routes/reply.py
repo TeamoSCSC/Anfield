@@ -3,12 +3,13 @@ from flask import (
     redirect,
     url_for,
     Blueprint,
-)
+    render_template)
 
 from models.message import Messages
+from models.topic import Topic
 from models.user import User
 from models.reply import Reply
-from routes.helper import current_user
+from routes.helper import current_user, login_required, csrf_required
 
 main = Blueprint('route_reply', __name__)
 
@@ -62,3 +63,16 @@ def add():
     m = Reply.add(form, user_id=u.id)
     return redirect(url_for('route_topic.detail', id=m.topic_id))
 
+
+@main.route("/delete")
+@csrf_required
+@login_required
+def delete():
+    u = current_user()
+    topic = Topic.one(id=int(request.args['topic_id']))
+    reply = Reply.one(id=int(request.args['reply_id']))
+    if u.id == int(topic.user_id) or u.id == int(reply.user_id):
+        Reply.delete(reply.id)
+        return render_template("topic/detail.html", topic=topic, user=u)
+    else:
+        return redirect(url_for('route_topic.detail', id=topic.id))

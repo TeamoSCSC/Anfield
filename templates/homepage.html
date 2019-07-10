@@ -67,6 +67,9 @@
                                 <img src="{{ t.user().image }}"
                                      title="{{ t.user().username }}">
                             </a>
+                            <a class='dark reply_author'>
+                                {{ t.user().username }}
+                            </a>
                             <div class="topic_title_wrapper">
                                 <a class="topic_title" href="{{ url_for('route_topic.detail', id=t.id) }}">
                                     {{ t.title }}
