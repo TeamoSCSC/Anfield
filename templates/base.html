@@ -5,7 +5,7 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="icon" href="https://static2.cnodejs.org/public/images/cnode_icon_32.png" type="image/x-icon">
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style3.css">
 <head>
 <body>
 
@@ -13,9 +13,9 @@
 <div class='navbar'>
   <div class='navbar-inner'>
     <div class='container'>
-        <a class="brand" href="https://cnodejs.org/">
+        <a class="brand" href="{{ url_for('index.index') }}">
 
-                <img src="/images/logo2.png">
+                <img src="/images/logo3.png">
 
         </a>
 
@@ -26,8 +26,8 @@
         <li><a href='{{ url_for('homepage.index') }}'>首页</a></li>
         <li><a href='{{ url_for('route_mail.index') }}'>私信</a></li>
         <li><a href='{{ url_for('route_mail.index') }}'>简历</a></li>
-        <li><a href='{{ url_for('route_mail.index') }}'>注册</a></li>
-        <li><a href='{{ url_for('route_mail.index') }}'>登录</a></li>
+        <li><a href='{{ url_for('index.rg') }}'>注册</a></li>
+        <li><a href='{{ url_for('index.index') }}'>登录</a></li>
 
       </ul>
       <a class="btn btn-navbar" id="responsive-sidebar-trigger">

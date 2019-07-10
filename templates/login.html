@@ -4,9 +4,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="icon" href="https://static2.cnodejs.org/public/images/cnode_icon_32.png" type="image/x-icon">
-    <link rel="stylesheet" href="/static/css/login.css" media="all">
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style3.css">
     <title>SC的个人论坛</title>
 </head>
 <body>
@@ -14,9 +13,9 @@
 <div class="navbar">
     <div class="navbar-inner">
         <div class="container">
-            <a class="brand" href="https://cnodejs.org/">
+            <a class="brand" href="{{ url_for('index.index') }}">
 
-                <img src="/images/logo2.png">
+                <img src="/images/logo3.png">
 
             </a>
 
@@ -63,13 +62,14 @@
                     <div class="control-group">
                         <label class="control-label">用户名</label>
                         <div class="controls">
-                            <input type="text" class="input-xlarge" name="username">
+                            <input type="text" class="input-xlarge" name="username" required value="111">
+                            <p class="input-xlarge" style="color:#a9302a">测试用户:111，密码111(可直接登录)</p>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">密码</label>
                         <div class="controls">
-                            <input type="text" class="input-xlarge" name="password">
+                            <input type="password" class="input-xlarge" name="password" required value="111">
                         </div>
                     </div>
                     <input type="hidden" name="_csrf" value="nx3HzVnk-PBWDg21SfnKX5vU2sweNZ4QX_hw">
