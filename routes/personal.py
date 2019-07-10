@@ -12,29 +12,36 @@ from routes import current_user, get_user
 
 from models.topic import Topic
 
-
 main = Blueprint('personal', __name__)
 
 
 @main.route("/<int:id>")
 def index(id):
-    m = Topic.all(user_id=id)
-    r = Reply.all(user_id=id)
-    r.sort(key=lambda r: r.created_time, reverse=True)
-    m.sort(key=lambda m: m.created_time, reverse=True)
-    rm = []
-    for i in r:
-        n = Topic.one(id=i.topic_id)
-        n.reply_time = i.created_time
-        rm.append(n)
-    u = get_user(id)
-    return render_template("personal.html", ms=m, rs=rm, user=u)
+    u = current_user()
+    if u.id == id:
+        m = Topic.all(user_id=id)
+        r = Reply.all(user_id=id)
+        r.sort(key=lambda r: r.created_time, reverse=True)
+        m.sort(key=lambda m: m.created_time, reverse=True)
+        rm = []
+        for i in r:
+            n = Topic.one(id=i.topic_id)
+            setattr(n, 'reply_time', i.created_time)
+            # n.reply_time = i.created_time
+            rm.append(n)
+        u = User.one(id=id)
+        return render_template("personal.html", ms=m, rs=rm, user=u)
+    else:
+        return redirect(url_for('homepage.index'))
 
 
 @main.route("/<int:id>/edit")
 def edit(id):
-    u = User.one(id=id)
-    return render_template("edit.html", user=u)
+    u = current_user()
+    if u.id == id:
+        return render_template("edit.html", user=u)
+    else:
+        return redirect(url_for('homepage.index'))
 
 
 @main.route("/<int:id>/edit/password", methods=["POST"])

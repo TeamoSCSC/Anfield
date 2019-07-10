@@ -7,6 +7,7 @@ from flask import (
 )
 
 from models.board import Board
+from models.reply import Reply
 
 from models.topic import Topic
 from routes.helper import (
@@ -47,6 +48,9 @@ def delete():
     id = int(request.args['id'])
     print('删除 topic 用户是', u, id)
     Topic.delete(id)
+    rs = Reply.all(topic_id=id)
+    for r in rs:
+        Reply.delete(r.id)
     return redirect(url_for('homepage.index'))
 
 
