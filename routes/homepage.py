@@ -26,3 +26,18 @@ def index():
     token = new_csrf_token()
     bs = Board.all()
     return render_template("homepage.html", ms=ms, token=token, bs=bs, bid=board_id, user=u)
+
+
+@main.route("/search")
+def search():
+    u = current_user()
+    board_id = int(request.args.get('board_id', -1))
+    content = str(request.args.get('content', -1))
+    ts = Topic.all()
+    ms = []
+    for topic in ts:
+        if content in topic.content:
+            ms.append(topic)
+    token = new_csrf_token()
+    bs = Board.all()
+    return render_template("homepage.html", ms=ms, token=token, bs=bs, bid=board_id, user=u)

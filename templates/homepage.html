@@ -75,9 +75,6 @@
                                 <a class="topic_title" href="{{ url_for('route_topic.delete', id=t.id, token=token) }}">
                                     删除
                                 </a>
-                                {# count(t.replies()) #}
-                                {#                            <span>{{ t.reply_count() }} / {{ t.views }}</span>#}
-                                {#len(Reply.all(topic_id=t.id))#}
                             </div>
                         </div>
                     {% endfor %}
@@ -96,5 +93,3 @@
 </script>
 
 {% endblock %}
-{#</body>#}
-{#</html>#}

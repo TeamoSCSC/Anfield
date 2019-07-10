@@ -20,8 +20,9 @@ def add():
     if receiver is not None:
         # 发邮件
         receiver_id = receiver.id
+        title = '发件人{} 标题{}'.format(u.username, form['title'])
         Messages.send(
-            title=form['title'],
+            title=title,
             content=form['content'],
             sender_id=u.id,
             receiver_id=receiver_id
