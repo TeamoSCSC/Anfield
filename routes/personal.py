@@ -31,35 +31,32 @@ def index(id):
     return render_template("personal.html", ms=m, rs=rm, user=u)
 
 
-@main.route("/<int:id>/edit")
-def edit(id):
+@main.route("/edit")
+def edit():
     u = current_user()
-    if u.id == id:
-        return render_template("edit.html", user=u)
-    else:
-        return redirect(url_for('homepage.index'))
-
-
-@main.route("/<int:id>/edit/password", methods=["POST"])
-def edit_password(id):
-    u = User.one(id=id)
-    form = request.form.to_dict()
-    print('password', User.salted_password(form['old_pass']), u.password)
-    if User.salted_password(form['old_pass']) == u.password and len(form['new_pass']) > 2:
-        User.update(id, password=User.salted_password(form['new_pass']))
     return render_template("edit.html", user=u)
 
 
-@main.route("/<int:id>/edit/usernameorsignatueoremail", methods=["POST"])
-def edit_usernameorsignatueoremail(id):
-    u = User.one(id=id)
+@main.route("/edit/password", methods=["POST"])
+def edit_password():
+    u = current_user()
+    form = request.form.to_dict()
+    print('password', User.salted_password(form['old_pass']), u.password)
+    if User.salted_password(form['old_pass']) == u.password and len(form['new_pass']) > 2:
+        User.update(u.id, password=User.salted_password(form['new_pass']))
+    return render_template("edit.html", user=u)
+
+
+@main.route("/edit/usernameorsignatueoremail", methods=["POST"])
+def edit_usernameorsignatueoremail():
+    u = current_user()
     form = request.form.to_dict()
     username = form.get('username', None)
     signature = form.get('signature', u.signature)
     email = form.get('email', u.email)
     if username is not None and not User.find(username=username):
-        User.update(id, username=username, signature=signature, email=email)
+        User.update(u.id, username=username, signature=signature, email=email)
     else:
-        User.update(id, signature=signature, email=email)
+        User.update(u.id, signature=signature, email=email)
     return render_template("edit.html", user=u)
 

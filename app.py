@@ -12,17 +12,12 @@ from flask_admin.contrib.sqla import ModelView
 import secret
 from models.base_model import db
 from models.board import Board
+from models.message import Messages
 from models.reply import Reply
 from models.topic import Topic
 from models.user import User, UserRole
 from routes.helper import current_user
 from utils import log
-
-"""
-在 flask 中，模块化路由的功能由 蓝图（Blueprints）提供
-蓝图可以拥有自己的静态资源路径、模板路径（现在还没涉及）
-用法如下
-"""
 # 注册蓝图
 # 有一个 url_prefix 可以用来给蓝图中的每个路由加一个前缀
 # import routes.index as index_view
@@ -36,7 +31,6 @@ from routes.resetpassword import main as reset_routes
 from routes.index import not_found
 
 
-# @app.template_filter()
 def count(input):
     log('count using jinja filter')
     return len(input)
@@ -91,6 +85,7 @@ def configured_app():
     admin.add_view(UserModelView(User, db.session))
     admin.add_view(UserModelView(Topic, db.session))
     admin.add_view(UserModelView(Reply, db.session))
+    admin.add_view(UserModelView(Messages, db.session))
     mv = UserModelView(Board, db.session)
     admin.add_view(mv)
     # Add administrative views here
