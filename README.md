@@ -29,19 +29,19 @@
 ## 演示
 **登录与话题操作**
 
-![](https://github.com/TeamoSCSC/Anfield/blob/master/images/login.png)
+![](https://github.com/TeamoSCSC/Anfield/blob/master/images/login.gif)
 
 **板块筛选与话题查找**
 
-![](https://github.com/TeamoSCSC/Anfield/blob/master/images/search.png)
+![](https://github.com/TeamoSCSC/Anfield/blob/master/images/search.gif)
 
 **用户编辑**
 
-![](https://github.com/TeamoSCSC/Anfield/blob/master/images/edit.png)
+![](https://github.com/TeamoSCSC/Anfield/blob/master/images/edit.gif)
 
 **密码找回**
 
 
 **私信**
 
-![](https://github.com/TeamoSCSC/Anfield/blob/master/images/chat.png)
+![](https://github.com/TeamoSCSC/Anfield/blob/master/images/chat.gif)
