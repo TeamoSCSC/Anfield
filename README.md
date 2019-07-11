@@ -41,6 +41,7 @@
 
 **密码找回**
 
+![](https://github.com/TeamoSCSC/Anfield/blob/master/images/reset.gif)
 
 **私信**
 
