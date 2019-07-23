@@ -3,7 +3,7 @@ from flask import (
     redirect,
     url_for,
     Blueprint,
-    render_template)
+    render_template, abort, Response)
 
 from models.message import Messages
 from models.topic import Topic
@@ -73,6 +73,6 @@ def delete():
     reply = Reply.one(id=int(request.args['reply_id']))
     if u.id == int(topic.user_id) or u.id == int(reply.user_id):
         Reply.delete(reply.id)
-        return render_template("topic/detail.html", topic=topic, user=u)
-    else:
         return redirect(url_for('route_topic.detail', id=topic.id))
+    else:
+        return abort(Response('您无权进行此操作'))
