@@ -3,13 +3,28 @@ from flask import (
     redirect,
     url_for,
     Blueprint,
-    render_template, abort, Response)
+    render_template,
+    abort,
+    Response,
+)
 
 from models.message import Messages
 from models.topic import Topic
 from models.user import User
 from models.reply import Reply
-from routes.helper import current_user, login_required, csrf_required
+from routes.helper import (
+    current_user,
+    login_required,
+    csrf_required,
+)
+
+
+"""
+用户在这里可以
+    添加回复
+    删除回复
+"""
+
 
 main = Blueprint('route_reply', __name__)
 

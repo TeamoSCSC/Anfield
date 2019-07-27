@@ -1,10 +1,11 @@
 import time
-
-from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+)
 
-from utils import log
 
 db = SQLAlchemy()
 

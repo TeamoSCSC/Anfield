@@ -8,9 +8,16 @@ from flask import (
 
 from models.reply import Reply
 from models.user import User
-from routes import current_user, get_user
-
 from models.topic import Topic
+from routes.helper import current_user
+
+
+"""
+用户在这里可以
+    查看个人信息
+    修改个人信息
+"""
+
 
 main = Blueprint('personal', __name__)
 

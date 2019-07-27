@@ -1,44 +1,31 @@
 import os
 import uuid
-import json
 import flask
 from flask import (
     render_template,
     request,
     redirect,
-    session,
     url_for,
     Blueprint,
-    abort,
     send_from_directory, current_app)
+
 from werkzeug.datastructures import FileStorage
-
 from models.user import User
-from routes.helper import session_user, cache, current_user
-
-from utils import log
-
-main = Blueprint('index', __name__)
-
-
-# def current_user():
-#     session_id = request.cookies.get('session', -1)
-#     user_id = json.loads(cache.get(session_id))
-#     if int(user_id) == -1:
-#         u = User.one(id=1)
-#     else:
-#         u = User.one(id=user_id)
-#     return u
+from routes.helper import (
+    session_user,
+    current_user,
+)
 
 
 """
 用户在这里可以
-    访问首页
     注册
     登录
-
 用户登录后, 会写入 session, 并且定向到 /profile
 """
+
+
+main = Blueprint('index', __name__)
 
 
 @main.route("/")

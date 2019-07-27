@@ -16,7 +16,6 @@ class UserRole():
 class User(SQLMixin, db.Model):
     """
     User 是一个保存用户数据的 model
-    现在只有两个属性 username 和 password
     """
 
     username = Column(String(50), nullable=False)

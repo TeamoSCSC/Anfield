@@ -18,6 +18,15 @@ from routes.helper import (
     current_user,
 )
 
+
+"""
+用户在这里可以
+    发布话题
+    删除话题
+    查看详情
+"""
+
+
 main = Blueprint('route_topic', __name__)
 
 

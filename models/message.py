@@ -1,13 +1,23 @@
 from time import sleep
 
-from flask import url_for, redirect
+from flask import (
+    url_for,
+    redirect,
+)
 from marrow.mailer import Mailer
-from sqlalchemy import Column, Unicode, UnicodeText, Integer
+from sqlalchemy import (
+    Column,
+    Unicode,
+    UnicodeText,
+    Integer,
+)
 
 from celery_tasks import send_mail
 from config import admin_mail
-import secret
-from models.base_model import SQLMixin, db
+from models.base_model import (
+    SQLMixin,
+    db,
+)
 from models.user import User
 
 

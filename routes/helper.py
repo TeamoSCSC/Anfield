@@ -2,13 +2,19 @@ import functools
 import uuid
 from functools import wraps
 
-from flask import session, request, abort, redirect, url_for
+from flask import (
+    request,
+    redirect,
+    url_for,
+)
 
 from models.topic import Topic
 from models.user import User
 from utils import log
 import json
 import redis
+
+
 cache = redis.StrictRedis()
 
 

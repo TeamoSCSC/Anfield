@@ -1,16 +1,23 @@
 from flask import (
     render_template,
     request,
-    redirect,
-    url_for,
     Blueprint,
 )
 
 from models.board import Board
-
-
 from models.topic import Topic
-from routes.helper import new_csrf_token, current_user
+from routes.helper import (
+    new_csrf_token,
+    current_user,
+)
+
+
+"""
+用户在这里可以
+    访问首页
+    搜索话题
+"""
+
 
 main = Blueprint('homepage', __name__)
 

@@ -1,9 +1,13 @@
-import time
-
-from sqlalchemy import String, Integer, Column, Text, UnicodeText, Unicode
-
-from models import Model
-from models.base_model import SQLMixin, db
+from sqlalchemy import (
+    Integer,
+    Column,
+    UnicodeText,
+    Unicode,
+)
+from models.base_model import (
+    SQLMixin,
+    db,
+)
 from models.user import User
 from models.reply import Reply
 

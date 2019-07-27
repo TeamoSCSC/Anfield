@@ -8,13 +8,19 @@ from flask import (
     Blueprint,
 )
 
-from models.board import Board
 from models.message import Messages
 from models.user import User
-from routes import current_user
+from routes.helper import (
+    new_csrf_token,
+    cache,
+)
 
-from models.topic import Topic
-from routes.helper import new_csrf_token, cache
+
+"""
+用户在这里可以
+    重置密码
+"""
+
 
 main = Blueprint('reset', __name__)
 

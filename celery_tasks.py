@@ -2,7 +2,7 @@ from celery import Celery
 from marrow.mailer import Mailer
 from config import admin_mail
 import secret
-import time
+
 
 celery = Celery('celery_tasks', backend='redis://localhost', broker='redis://localhost')
 

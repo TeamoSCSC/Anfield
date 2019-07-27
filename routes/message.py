@@ -6,9 +6,19 @@ from flask import (
     Blueprint,
 )
 
-from routes import *
-
+from models.user import User
 from models.message import Messages
+from routes.helper import current_user
+
+
+"""
+用户在这里可以
+    查看来往私信
+    发送私信
+用户登录后, 会写入 session, 并且定向到 /profile
+"""
+
+
 main = Blueprint('route_mail', __name__)
 
 
