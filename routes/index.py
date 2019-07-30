@@ -14,7 +14,7 @@ from models.user import User
 from routes.helper import (
     session_user,
     current_user,
-)
+    login_required)
 
 
 """
@@ -72,6 +72,7 @@ def login():
 
 
 @main.route('/image/add', methods=['POST'])
+@login_required
 def avatar_add():
     file: FileStorage = request.files['avatar']
     suffix = file.filename.split('.')[-1]
@@ -86,6 +87,7 @@ def avatar_add():
 
 
 @main.route('/images/<filename>')
+@login_required
 def image(filename):
     return send_from_directory('images', filename)
 

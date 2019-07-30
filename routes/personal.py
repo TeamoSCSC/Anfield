@@ -9,8 +9,7 @@ from flask import (
 from models.reply import Reply
 from models.user import User
 from models.topic import Topic
-from routes.helper import current_user
-
+from routes.helper import current_user, login_required
 
 """
 用户在这里可以
@@ -23,6 +22,7 @@ main = Blueprint('personal', __name__)
 
 
 @main.route("/<int:id>")
+@login_required
 def index(id):
     m = Topic.all(user_id=id)
     r = Reply.all(user_id=id)
@@ -39,12 +39,14 @@ def index(id):
 
 
 @main.route("/edit")
+@login_required
 def edit():
     u = current_user()
     return render_template("edit.html", user=u)
 
 
 @main.route("/edit/password", methods=["POST"])
+@login_required
 def edit_password():
     u = current_user()
     form = request.form.to_dict()
@@ -55,6 +57,7 @@ def edit_password():
 
 
 @main.route("/edit/usernameorsignatueoremail", methods=["POST"])
+@login_required
 def edit_usernameorsignatueoremail():
     u = current_user()
     form = request.form.to_dict()

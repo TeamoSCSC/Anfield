@@ -23,5 +23,5 @@ def profile_request(path, cookie, f):
 
 if __name__ == '__main__':
     path = '/personal/7'
-    cookie = 'session=user78f2482d-92c5-4923-8b79-0e890d432b78'
+    cookie = 'cache_session=user78f2482d-92c5-4923-8b79-0e890d432b78'
     profile_request(path, cookie, index)

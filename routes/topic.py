@@ -31,6 +31,7 @@ main = Blueprint('route_topic', __name__)
 
 
 @main.route('/<int:id>')
+@login_required
 def detail(id):
     # id = int(request.args['id'])
     # http://localhost:3000/topic/1
@@ -58,6 +59,7 @@ def delete():
 
 
 @main.route("/new")
+@login_required
 def new():
     board_id = int(request.args.get('board_id', -1))
     bs = Board.all()
@@ -67,6 +69,7 @@ def new():
 
 @main.route("/add", methods=["POST"])
 @csrf_required
+@login_required
 def add():
     form = request.form.to_dict()
     u = current_user()

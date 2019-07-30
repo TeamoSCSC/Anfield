@@ -75,7 +75,7 @@
         {% endfor %}
     </div>
     <div>
-        <form action="{{ url_for('route_reply.add') }}" method="post">
+        <form action="{{ url_for('route_reply.add', token=token) }}" method="post">
             <input type="hidden" name="topic_id" value="{{ topic.id }}">
             <textarea name="content"></textarea>
             <button>添加回复</button>

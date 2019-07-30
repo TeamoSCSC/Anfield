@@ -21,12 +21,14 @@ cache = redis.StrictRedis()
 def current_user():
     session_id = request.cookies.get('cache_session', -1)
     log('session_id', session_id)
-    user_id = json.loads(cache.get(session_id))
+    # user_id = json.loads(cache.get(session_id))
+    user_id = cache.get(session_id)
     log('user_id', user_id)
-    if int(user_id) == -1:
+    if user_id is None:
         u = User.guest()
         return u
     else:
+        user_id = json.loads(cache.get(session_id))
         u = User.one(id=user_id)
         if u is None:
             return User.guest()
@@ -34,19 +36,34 @@ def current_user():
             return u
 
 
-def login_required(route_function):
-    @functools.wraps(route_function)
-    def f():
+# def login_required(route_function):
+#     @functools.wraps(route_function)
+#     def f():
+#         log('login_required')
+#         u = current_user()
+#         if u is None:
+#             log('游客用户')
+#             return redirect(url_for('index.index'))
+#         else:
+#             log('登录用户', route_function)
+#             return route_function()
+#
+#     return f
+
+
+def login_required(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
         log('login_required')
         u = current_user()
-        if u is None:
+        if u.username == '游客':
             log('游客用户')
             return redirect(url_for('index.index'))
         else:
-            log('登录用户', route_function)
-            return route_function()
+            log('登录用户', f)
+            return f(*args, **kwargs)
 
-    return f
+    return wrapper
 
 
 # def current_user():

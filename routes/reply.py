@@ -64,6 +64,8 @@ def send_mails(sender, receivers, reply_link, reply_content):
 
 
 @main.route("/add", methods=["POST"])
+@csrf_required
+@login_required
 def add():
     form = request.form
     u = current_user()

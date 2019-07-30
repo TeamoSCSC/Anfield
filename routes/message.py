@@ -8,8 +8,7 @@ from flask import (
 
 from models.user import User
 from models.message import Messages
-from routes.helper import current_user
-
+from routes.helper import current_user, login_required
 
 """
 用户在这里可以
@@ -23,6 +22,7 @@ main = Blueprint('route_mail', __name__)
 
 
 @main.route("/add", methods=["POST"])
+@login_required
 def add():
     form = request.form.to_dict()
     u = current_user()
@@ -43,6 +43,7 @@ def add():
 
 
 @main.route('/')
+@login_required
 def index():
     u = current_user()
 
@@ -59,6 +60,7 @@ def index():
 
 
 @main.route('/view/<int:id>')
+@login_required
 def view(id):
     message = Messages.one(id=id)
     u = current_user()

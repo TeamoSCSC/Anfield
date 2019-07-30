@@ -9,6 +9,7 @@ from models.topic import Topic
 from routes.helper import (
     new_csrf_token,
     current_user,
+    login_required,
 )
 
 
@@ -23,6 +24,7 @@ main = Blueprint('homepage', __name__)
 
 
 @main.route("/")
+@login_required
 def index():
     u = current_user()
     board_id = int(request.args.get('board_id', -1))
@@ -36,6 +38,7 @@ def index():
 
 
 @main.route("/search")
+@login_required
 def search():
     u = current_user()
     board_id = int(request.args.get('board_id', -1))
