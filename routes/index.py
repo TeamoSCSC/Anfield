@@ -71,6 +71,13 @@ def login():
         return res
 
 
+@main.route("/logout", methods=['GET'])
+def logout():
+    res = current_app.make_response(redirect(url_for('index.index')))
+    res.delete_cookie('cache_session')
+    return res
+
+
 @main.route('/image/add', methods=['POST'])
 @login_required
 def avatar_add():
