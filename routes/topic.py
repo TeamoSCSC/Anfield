@@ -1,3 +1,5 @@
+import time
+
 from flask import (
     render_template,
     request,
@@ -75,4 +77,30 @@ def add():
     u = current_user()
     Topic.add(form, user_id=u.id)
     return redirect(url_for('homepage.index'))
+
+
+@main.route("/edit")
+@topic_owner
+@login_required
+def edit():
+    id = int(request.args['id'])
+    token = new_csrf_token()
+    m = Topic.get(id)
+    u = current_user()
+    bs = Board.all()
+    return render_template("topic/topic_edit.html", topic=m, user=u, token=token, bs=bs)
+
+
+@main.route("/edit_refresh", methods=["POST"])
+@csrf_required
+@topic_owner
+@login_required
+def edit_refresh():
+    form = request.form.to_dict()
+    form['updated_time'] = int(time.time())
+    u = current_user()
+    topic_id = request.args['id']
+    t: Topic = Topic.get(topic_id)
+    t.edit(form)
+    return redirect(url_for('.detail', id=t.id, u=u))
 

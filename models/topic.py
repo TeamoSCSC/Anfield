@@ -25,6 +25,12 @@ class Topic(SQLMixin, db.Model):
         m = super().new(form)
         return m
 
+    def edit(self, form):
+        self.content = form['content']
+        self.board_id = form['board_id']
+        self.updated_time = form['updated_time']
+        self.save()
+
     @classmethod
     def get(cls, id):
         m = cls.one(id=id)

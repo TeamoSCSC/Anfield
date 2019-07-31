@@ -31,6 +31,23 @@
                     <div class="markdown-text">{{ topic.content }}</div>
                 </div>
             </div>
+            <div class="cell">
+                <div class="changes">
+                    <span>
+                        最后修改于 {{ topic.updated_time | format_time }}
+                    </span>
+                </div>
+                {% if topic.user_id == user.id or topic.user_id == 1 %}
+                <div class='user_action'>
+                    <a href="{{ url_for('route_topic.edit', id=topic.id) }}">
+                        <span class="span-primary submit_btn">编辑话题</span>
+                    </a>
+                    <a href="{{ url_for('route_topic.delete', id=topic.id, token=token) }}">
+                        <span class="span-primary submit_btn" style="background-color: #da4f49">删除话题</span>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 
@@ -58,18 +75,28 @@
                         <span >{{ r.created_time | format_time }}</span>
                     </a>
                 </div>
+{#                <div class='user_action'>#}
+{#                    <span>#}
+{#                        <i class="fa up_btn#}
+{#                          fa-thumbs-o-up#}
+{#                          invisible" title="喜欢"></i>#}
+{#                        <span class="up-count">#}
+{#                        </span>#}
+{#                    </span>#}
+{#                </div>#}
+{#                <div class='reply_content from-leiwei1991'>#}
+{#                    <div class="markdown-text">{{ r.content }}</div>#}
+{#                    <a href="{{ url_for('route_reply.delete', reply_id=r.id, topic_id=topic.id, token=token) }}">删除评论</a>#}
+{#                </div>#}
                 <div class='user_action'>
-                    <span>
-                        <i class="fa up_btn
-                          fa-thumbs-o-up
-                          invisible" title="喜欢"></i>
-                        <span class="up-count">
-                        </span>
-                    </span>
+                    {% if r.user_id == user.id %}
+                        <a href="{{ url_for('route_reply.delete', reply_id=r.id, topic_id=topic.id, token=token) }}">
+                    <span class="span-primary submit_btn" style="font-size:8px">删除评论</span>
+                        </a>
+                    {% endif %}
                 </div>
-                <div class='reply_content from-leiwei1991'>
+                <div class='reply_content'>
                     <div class="markdown-text">{{ r.content }}</div>
-                    <a href="{{ url_for('route_reply.delete', reply_id=r.id, topic_id=topic.id, token=token) }}">删除评论</a>
                 </div>
             </div>
         {% endfor %}
