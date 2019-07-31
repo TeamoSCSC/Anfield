@@ -6,7 +6,7 @@
         <div id="content">
             <div class="panel">
                 <div class="inner post">
-<form id="create_topic_form" method="post" action="{{ url_for('route_topic.edit_refresh', id=topic.id, token=token) }}">
+<form id="create_topic_form" method="post" action="{{ url_for('route_topic.edit_refresh', id=topic.id) }}">
     <fieldset>
         <div   class="controls">
             <input class="input-xlarge readonly" id="name" name="title" size="30" type="text" readonly="true" style="width:500px;// height=20px;//高度"

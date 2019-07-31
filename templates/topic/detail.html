@@ -3,6 +3,10 @@
 {% block main %}
 
 <div id="main">
+    <div id="sidebar">
+        {% from 'utils.html' import sidebar_info %}
+        {{ sidebar_info(user='route_topic.detail',topic=topic) }}
+    </div>
     <div id="content">
         <div class='panel'>
             <div class='header topic_header'>
@@ -21,7 +25,7 @@
           	    {{ topic.views }} 次浏览
         	</span>
                     <span>
-                来自 问答
+                来自 {{ topic.get_board().title }}
             </span>
                 </div>
             </div>
@@ -37,20 +41,20 @@
                         最后修改于 {{ topic.updated_time | format_time }}
                     </span>
                 </div>
-                {% if topic.user_id == user.id or topic.user_id == 1 %}
                 <div class='user_action'>
-                    <a href="{{ url_for('route_topic.edit', id=topic.id) }}">
+                    {% if (topic.user_id == user.id) or (user.id == 1) %}
+                    <a href="{{ url_for('route_topic.edit', id=topic.id, token=token) }}">
                         <span class="span-primary submit_btn">编辑话题</span>
                     </a>
                     <a href="{{ url_for('route_topic.delete', id=topic.id, token=token) }}">
                         <span class="span-primary submit_btn" style="background-color: #da4f49">删除话题</span>
                     </a>
+                    {% endif %}
                 </div>
-                {% endif %}
             </div>
         </div>
     </div>
-
+    <div id="content">
     <div class='panel'>
         <div class='header'>
             <span class='col_fade'>
@@ -75,19 +79,6 @@
                         <span >{{ r.created_time | format_time }}</span>
                     </a>
                 </div>
-{#                <div class='user_action'>#}
-{#                    <span>#}
-{#                        <i class="fa up_btn#}
-{#                          fa-thumbs-o-up#}
-{#                          invisible" title="喜欢"></i>#}
-{#                        <span class="up-count">#}
-{#                        </span>#}
-{#                    </span>#}
-{#                </div>#}
-{#                <div class='reply_content from-leiwei1991'>#}
-{#                    <div class="markdown-text">{{ r.content }}</div>#}
-{#                    <a href="{{ url_for('route_reply.delete', reply_id=r.id, topic_id=topic.id, token=token) }}">删除评论</a>#}
-{#                </div>#}
                 <div class='user_action'>
                     {% if r.user_id == user.id %}
                         <a href="{{ url_for('route_reply.delete', reply_id=r.id, topic_id=topic.id, token=token) }}">
@@ -101,12 +92,24 @@
             </div>
         {% endfor %}
     </div>
-    <div>
-        <form action="{{ url_for('route_reply.add', token=token) }}" method="post">
+    </div>
+
+    <div id="content">
+    <div class='panel'>
+        <div class='header'>
+            <span class='col_fade'>添加回复</span>
+        </div>
+
+        <div class='inner reply'>
+        <form id='reply_form' action="{{ url_for('route_reply.add', token=token) }}" method="post">
             <input type="hidden" name="topic_id" value="{{ topic.id }}">
-            <textarea name="content"></textarea>
-            <button>添加回复</button>
+            <textarea class='editor' name="content" rows='8' required></textarea>
+            <div class='editor_buttons'>
+                <input class='span-primary submit_btn' type="submit" data-loading-text="回复中.." value="回复">
+            </div>
         </form>
+        </div>
+    </div>
     </div>
 </div>
 

@@ -1,0 +1,101 @@
+{#how to use: #}
+{#        {% from 'utils.html' import sidebar_info %}#}
+{#        {{ sidebar_info() }}#}
+{% macro sidebar_info(user='route_topic.index', topic=None) %}
+    {% if user == 'route_topic.detail' %}
+        {% set author = topic.user() %}
+    <div class="panel">
+        <div class="header">
+            <span class="col_fade">作者信息</span>
+        </div>
+        <div class="inner">
+            <div class="user_card">
+                <div>
+                    <a class="user_avatar" href="{{ url_for('personal.index', id=author.id) }}">
+                        <img src="{{ author.image }}"
+                             title="{{ author.username }}">
+                    </a>
+                    <span class="user_name"><a class="dark" href="{{ url_for('personal.index', id=author.id) }}">{{ author.username }}
+                    </a>
+                    </span>
+                    <div class="space clearfix"></div>
+                    <br>
+                    <span class="signature">
+                        "{{ author.signature }}"
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="panel">
+    <div class="inner">
+      <a href="{{ url_for('route_topic.new') }}" id="create_topic_btn">
+        <span class="span-success">发布话题</span>
+      </a>
+    </div>
+  </div>
+    {% else %}
+        {% set me = current_user() %}
+        {% if me %}
+            <div class="panel">
+        <div class="header">
+            <span class="col_fade">个人信息</span>
+        </div>
+        <div class="inner">
+            <div class="user_card">
+                <div>
+                    <a class="user_avatar" href="{{ url_for('personal.index', id=me.id) }}">
+                        <img src="{{ me.image }}"
+                             title="{{ me.username }}">
+                    </a>
+                    <span class="user_name"><a class="dark" href="{{ url_for('personal.index', id=me.id) }}">{{ me.username }}
+                    </a>
+                    </span>
+                    <div class="space clearfix"></div>
+                    <br>
+                    <span class="signature">
+                        "{{ me.signature }}"
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+            <div class="panel">
+    <div class="inner">
+      <a href="{{ url_for('route_topic.new') }}" id="create_topic_btn">
+        <span class="span-success">发布话题</span>
+      </a>
+    </div>
+  </div>
+        {% endif %}
+    {% endif %}
+    <div class="panel">
+        <div class="header">
+            <span class="col_fade">源码地址</span>
+        </div>
+        <div class="inner">
+            <ol class="friendship-community">
+                <li>
+                    <a href="https://github.com/TeamoSCSC/Anfield" target="_blank">
+                        <img src="/images/github-logo.jpg">
+
+                    </a>
+                </li>
+                <div class="sep10"></div>
+            </ol>
+        </div>
+    </div>
+
+    <div class='panel'>
+        <div class='header'>
+            <span class='col_fade'>本站作者</span>
+        </div>
+        <div class='inner cnode-app-download'>
+            <img width='200' src="/images/wechat.jpg">
+            <br>
+            扫一扫添加Masker
+            <br>
+            <a href="https://github.com/FrostwYc/frost_bbs">友情链接</a>
+        </div>
+    </div>
+{% endmacro %}

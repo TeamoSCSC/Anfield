@@ -8,6 +8,7 @@ from models.base_model import (
     SQLMixin,
     db,
 )
+from models.board import Board
 from models.user import User
 from models.reply import Reply
 
@@ -49,3 +50,7 @@ class Topic(SQLMixin, db.Model):
     def reply_count(self):
         count = len(self.replies())
         return count
+
+    def get_board(self):
+        b = Board.one(id=self.board_id)
+        return b

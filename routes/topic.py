@@ -80,11 +80,12 @@ def add():
 
 
 @main.route("/edit")
+@csrf_required
 @topic_owner
 @login_required
 def edit():
     id = int(request.args['id'])
-    token = new_csrf_token()
+    token = request.args['token']
     m = Topic.get(id)
     u = current_user()
     bs = Board.all()
@@ -92,7 +93,6 @@ def edit():
 
 
 @main.route("/edit_refresh", methods=["POST"])
-@csrf_required
 @topic_owner
 @login_required
 def edit_refresh():

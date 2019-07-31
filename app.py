@@ -80,6 +80,7 @@ def configured_app():
     app.template_filter()(count)
     app.template_filter()(format_time)
     app.errorhandler(404)(not_found)
+    app.add_template_global(current_user, 'current_user')
 
     admin = Admin(app, name='Anfield', template_mode='bootstrap3')
     admin.add_view(UserModelView(User, db.session))
