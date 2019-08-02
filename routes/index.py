@@ -7,7 +7,10 @@ from flask import (
     redirect,
     url_for,
     Blueprint,
-    send_from_directory, current_app)
+    send_from_directory,
+    current_app,
+    flash,
+)
 
 from werkzeug.datastructures import FileStorage
 from models.user import User
@@ -57,7 +60,7 @@ def login():
     u = User.validate_login(form)
     print('login user <{}>'.format(u))
     if u is None:
-        # 转到 topic.index 页面
+        flash('用户名或密码错误')
         return redirect(url_for('.index'))
     else:
         # session 中写入 user_id

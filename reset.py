@@ -26,28 +26,29 @@ def reset_database():
 def generate_fake_date():
     form = dict(
         username='scsc',
-        password='123'
+        password='123',
+        role='admin',
     )
     u = User.register(form)
 
-    form = dict(
-        title='all'
-    )
-    a = Board.new(form)
-    form = dict(
-        title='test'
-    )
-    b = Board.new(form)
-
-
-    with open('markdown_demo.md', encoding='utf8') as f:
-        content = f.read()
-    form = dict(
-        title='markdown demo',
-        board_id=b.id,
-        content=content
-    )
-    Topic.add(form, u.id)
+    # form = dict(
+    #     title='all'
+    # )
+    # a = Board.new(form)
+    # form = dict(
+    #     title='test'
+    # )
+    # b = Board.new(form)
+    #
+    #
+    # with open('markdown_demo.md', encoding='utf8') as f:
+    #     content = f.read()
+    # form = dict(
+    #     title='markdown demo',
+    #     board_id=b.id,
+    #     content=content
+    # )
+    # Topic.add(form, u.id)
 
 
 if __name__ == '__main__':

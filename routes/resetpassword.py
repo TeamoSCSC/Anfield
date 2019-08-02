@@ -6,6 +6,7 @@ from flask import (
     redirect,
     url_for,
     Blueprint,
+    flash,
 )
 
 from models.message import Messages
@@ -29,14 +30,17 @@ main = Blueprint('reset', __name__)
 def reset_send_mail():
     username = request.form['username']
     u = User.one(username=username)
-    token = new_csrf_token()
-    u.id = json.loads(cache.get(token))
+    if u is None:
+        flash('该用户不存在！')
+        return redirect(url_for('index.index'))
+    token = new_csrf_token(u)
     Messages.send(
         title='sc论坛重置密码',
         content='http://152.136.129.239/reset/view?token={}'.format(token),
         sender_id=0,
         receiver_id=u.id
     )
+    flash('邮件发送成功！')
     return redirect(url_for('index.index'))
 
 

@@ -110,8 +110,9 @@ def topic_owner(f):
     return wrapper
 
 
-def new_csrf_token():
-    u = current_user()
+def new_csrf_token(u=None):
+    if u is None:
+        u = current_user()
     k = str(uuid.uuid4())
     v = u.id
     cache.set(k, v)

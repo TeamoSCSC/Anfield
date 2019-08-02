@@ -30,6 +30,7 @@
 </div>
 
 <div id="main">
+    {% set message = get_flashed_messages()[0] %}
     <div id="sidebar">
         <div class="panel">
             <div class="header">
@@ -69,11 +70,11 @@
                 <span class='col_fade'>本站作者</span>
             </div>
             <div class='inner cnode-app-download'>
-                <img width='200' src="/images/wechat.jpg">
+                <img width='200' src="/images/wechat.png">
                 <br>
                 扫一扫添加Masker
                 <br>
-                <a href="https://github.com/FrostwYc/frost_bbs">友情链接</a>
+                <a href="https://www.python.org/">友情链接</a>
             </div>
         </div>
     </div>
@@ -101,6 +102,9 @@
                         <div class="controls">
                             <input type="password" class="input-xlarge" name="password" required value="111">
                             <p class="input-xlarge" style="color:#a9302a">welcome!</p>
+                            {% if message == '用户名或密码错误' %}
+                            <p class="input-xlarge" style="color:#a9302a">{{ message }}</p>
+                            {% endif %}
                         </div>
                     </div>
                     <input type="hidden" name="_csrf" value="nx3HzVnk-PBWDg21SfnKX5vU2sweNZ4QX_hw">
@@ -125,6 +129,9 @@
                         <label class="control-label">用户名</label>
                         <div class="controls">
                             <input type="text" class="input-xlarge" name="username">
+                            {% if message != '用户名或密码错误' %}
+                            <p class="input-xlarge" style="color:#a9302a">{{ message }}</p>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="form-actions">

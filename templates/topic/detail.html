@@ -103,7 +103,7 @@
         <div class='inner reply'>
         <form id='reply_form' action="{{ url_for('route_reply.add', token=token) }}" method="post">
             <input type="hidden" name="topic_id" value="{{ topic.id }}">
-            <textarea class='editor' name="content" rows='8' required></textarea>
+            <textarea class='editor' name="content" rows='6' style="height: 100px;"  required></textarea>
             <div class='editor_buttons'>
                 <input class='span-primary submit_btn' type="submit" data-loading-text="回复中.." value="回复">
             </div>

@@ -3,40 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
-{#    <link rel="icon" href="https://static2.cnodejs.org/public/images/cnode_icon_32.png" type="image/x-icon">#}
+    {#    <link rel="icon" href="https://static2.cnodejs.org/public/images/cnode_icon_32.png" type="image/x-icon">#}
     <link rel="icon" href="/images/tinylogo.gif" type="image/x-icon">
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/style3.css">
-<head>
+    <head>
 <body>
 
 <!-- navbar -->
 <div class='navbar'>
-  <div class='navbar-inner'>
-    <div class='container'>
-        <a class="brand" href="{{ url_for('index.index') }}">
+    <div class='navbar-inner'>
+        <div class='container'>
+            <a class="brand" href="{{ url_for('index.index') }}">
 
                 <img src="/images/logo3.png">
 
-        </a>
+            </a>
 
-        <form id="search_form" class="navbar-search" action="{{ url_for('homepage.search') }}">
-        <input type="text" id="content" name="content" class="search-query span3" value="">
-        </form>
-      <ul class='nav pull-right'>
-        <li><a href='{{ url_for('homepage.index') }}'>首页</a></li>
-        <li><a href='{{ url_for('route_mail.index') }}'>私信</a></li>
-        <li><a href='{{ url_for('personal.edit') }}'>设置</a></li>
-        <li><a href='{{ url_for('index.rg') }}'>简历</a></li>
-        <li><a href='{{ url_for('index.logout') }}'>注销</a></li>
-      </ul>
-      <a class="btn btn-navbar" id="responsive-sidebar-trigger">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
+            <form id="search_form" class="navbar-search" action="{{ url_for('homepage.search') }}">
+                <input type="text" id="content" name="content" class="search-query span3" value="">
+            </form>
+            <ul class='nav pull-right'>
+                <li><a href='{{ url_for('homepage.index') }}'>首页</a></li>
+                <li><a href='{{ url_for('route_mail.index') }}'>私信</a></li>
+                {% set u = current_user() %}
+                <li><a href='{{ url_for('personal.index', id=u.id) }}'>个人</a></li>
+                <li><a href='{{ url_for('personal.edit') }}'>设置</a></li>
+                <li><a href='{{ url_for('index.logout') }}'>注销</a></li>
+            </ul>
+            <a class="btn btn-navbar" id="responsive-sidebar-trigger">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+        </div>
     </div>
-  </div>
 </div>
 
 {% block main %}
