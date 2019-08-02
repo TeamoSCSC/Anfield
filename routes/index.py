@@ -51,7 +51,14 @@ def register():
     form = request.form
     # 用类函数来判断
     u = User.register(form)
-    return redirect(url_for('.index'))
+    if u is not None:
+        session_id = session_user(u.id)
+        res = current_app.make_response(flask.redirect(url_for('homepage.index')))
+        res.set_cookie('cache_session', session_id)
+        return res
+    else:
+        flash('用户名长度必须大于2或用户名已存在！')
+        return redirect(url_for('index.rg'))
 
 
 @main.route("/login", methods=['POST'])

@@ -11,7 +11,7 @@
     <fieldset>
         <textarea autofocus class='span9' id='title'
                   name='title' rows='1'
-                  placeholder="标题字数 30 字以下"></textarea>
+                  placeholder="标题字数 30 字以下" required></textarea>
         <span class="tab-selector">选择版块：</span>
         <select name="board_id" id="board" required>
             {% for b in bs %}
@@ -24,7 +24,7 @@
         </select>
         <div class='markdown_editor in_editor'>
           <div class='markdown_in_editor'>
-            <textarea class='editor' name='content' rows='20' placeholder='文章支持 Markdown 语法, 请注意标记代码'></textarea>
+            <textarea class='editor' name='content' rows='20' placeholder='文章支持 Markdown 语法, 请注意标记代码' required></textarea>
             <div class='editor_buttons'>
               <input type="submit" class='span-primary submit_btn' data-loading-text="提交中" value="提交">
             </div>

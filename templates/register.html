@@ -63,13 +63,14 @@
                     <div class="control-group">
                         <label class="control-label">用户名</label>
                         <div class="controls">
-                            <input type="text" class="input-xlarge" name="username">
+                            <input type="text" class="input-xlarge" name="username" required value="">
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">密码</label>
                         <div class="controls">
-                            <input type="text" class="input-xlarge" name="password">
+                            <input type="text" class="input-xlarge" name="password" required value="">
+                            <p class="input-xlarge" style="color:#a9302a">{{ get_flashed_messages()[0] }}</p>
                         </div>
                     </div>
                     <input type="hidden" name="_csrf" value="nx3HzVnk-PBWDg21SfnKX5vU2sweNZ4QX_hw">

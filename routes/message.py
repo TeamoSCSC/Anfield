@@ -42,6 +42,27 @@ def add():
         return redirect(url_for('.index'))
 
 
+@main.route("/addin", methods=["POST"])
+@login_required
+def addin():
+    form = request.form.to_dict()
+    u = current_user()
+    receiver = User.one(username=form['receiver'])
+    if receiver is not None:
+        # 发邮件
+        receiver_id = receiver.id
+        title = '{}'.format(form['title'])
+        Messages.send_in(
+            title=title,
+            content=form['content'],
+            sender_id=u.id,
+            receiver_id=receiver_id
+        )
+        return redirect(url_for('.index'))
+    else:
+        return redirect(url_for('.index'))
+
+
 @main.route('/')
 @login_required
 def index():

@@ -100,14 +100,13 @@
                     <div class="control-group">
                         <label class="control-label">密码</label>
                         <div class="controls">
-                            <input type="password" class="input-xlarge" name="password" required value="111">
+                            <input type="text" class="input-xlarge" name="password" required value="111">
                             <p class="input-xlarge" style="color:#a9302a">welcome!</p>
                             {% if message == '用户名或密码错误' %}
                             <p class="input-xlarge" style="color:#a9302a">{{ message }}</p>
                             {% endif %}
                         </div>
                     </div>
-                    <input type="hidden" name="_csrf" value="nx3HzVnk-PBWDg21SfnKX5vU2sweNZ4QX_hw">
 
                     <div class="form-actions">
                         <input type="submit" class="span-primary" value="登录">
@@ -128,7 +127,7 @@
                     <div class="control-group">
                         <label class="control-label">用户名</label>
                         <div class="controls">
-                            <input type="text" class="input-xlarge" name="username">
+                            <input type="text" class="input-xlarge" name="username" required value="">
                             {% if message != '用户名或密码错误' %}
                             <p class="input-xlarge" style="color:#a9302a">{{ message }}</p>
                             {% endif %}

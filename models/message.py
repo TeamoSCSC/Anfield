@@ -75,6 +75,17 @@ class Messages(SQLMixin, db.Model):
         )
         return redirect(url_for('route_mail.index'))
 
+    @staticmethod
+    def send_in(title: str, content: str, sender_id: int, receiver_id: int):
+        form = dict(
+            title=title,
+            content=content,
+            sender_id=sender_id,
+            receiver_id=receiver_id
+        )
+        Messages.new(form)
+        return redirect(url_for('route_mail.index'))
+
     def get_sender(self):
         u = User.one(id=self.sender_id)
         return u
