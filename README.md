@@ -1,4 +1,4 @@
-论坛地址： http://www.teamodou.com  欢迎访问！
+论坛地址： https://www.teamodou.com  欢迎访问！
 
 
 ## 基于Flask的个人论坛
@@ -19,6 +19,7 @@
 - 使用摘要和加盐对密码进行存储，保证用户密码安全；
 - 使用服务器端 Session 实现当前用户验证；
 - Session 和 Token 使用 Redis 进行存储，以支持多进程间数据共享。
+- 配置Https进行数据加密传输，保障安全，。
 
 **项目部署**
 
