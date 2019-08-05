@@ -22,8 +22,9 @@ from models.user import User
 from routes.helper import (
     session_user,
     current_user,
-    login_required, cache)
-
+    login_required,
+)
+from routes.myredis import cache
 
 """
 用户在这里可以
@@ -131,25 +132,27 @@ def logout():
     return res
 
 
-@main.route('/image/add', methods=['POST'])
-@login_required
-def avatar_add():
-    file: FileStorage = request.files['avatar']
-    suffix = file.filename.split('.')[-1]
-    filename = '{}.{}'.format(str(uuid.uuid4()), suffix)
-    path = os.path.join('images', filename)
-    file.save(path)
-
-    u = current_user()
-    User.update(u.id, image='/images/{}'.format(filename))
-
-    return redirect(url_for('personal.edit', id=u.id))
-
-
-@main.route('/images/<filename>')
-@login_required
-def image(filename):
-    return send_from_directory('images', filename)
+# @main.route('/image/add', methods=['POST'])
+# @login_required
+# def avatar_add():
+#     file: FileStorage = request.files['avatar']
+#     suffix = file.filename.split('.')[-1]
+#     filename = '{}.{}'.format(str(uuid.uuid4()), suffix)
+#     path = os.path.join('images', filename)
+#     file.save(path)
+#
+#     u = current_user()
+#     User.update(u.id, image='/images/{}'.format(filename))
+#     key = 'user_id_{}'.format(u.id)
+#     cache.delete(key)
+#
+#     return redirect(url_for('personal.edit', id=u.id))
+#
+#
+# @main.route('/images/<filename>')
+# @login_required
+# def image(filename):
+#     return send_from_directory('images', filename)
 
 
 def not_found(e):

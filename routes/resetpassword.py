@@ -13,9 +13,8 @@ from models.message import Messages
 from models.user import User
 from routes.helper import (
     new_csrf_token,
-    cache,
 )
-
+from routes.myredis import cache
 
 """
 用户在这里可以
@@ -63,8 +62,10 @@ def reset_update(token):
     password = request.form['password']
     if u_id is not None and len(password) > 2:
         u = User.one(id=u_id)
+        key = 'user_id_{}'.format(u.id)
         u.password = u.salted_password(password)
         User.update(u_id, password=u.password)
+        cache.delete(key)
         return redirect(url_for('index.index'))
     else:
         return redirect(url_for('index.index'))

@@ -83,6 +83,21 @@ class SQLMixin(object):
                 s += '{}: ({})\n'.format(attr, v)
         return '< {}\n{} >\n'.format(name, s)
 
+    def json(self):
+        d = dict()
+        for attr, column in self.columns():
+            if hasattr(self, attr):
+                v = getattr(self, attr)
+                d[attr] = v
+        return d
+
+    @classmethod
+    def get_model(cls, form):
+        m = cls()
+        for name, value in form.items():
+            setattr(m, name, value)
+        return m
+
     def save(self):
         db.session.add(self)
         db.session.commit()

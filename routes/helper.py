@@ -10,12 +10,9 @@ from flask import (
 
 from models.topic import Topic
 from models.user import User
+from routes.myredis import cached_user_id, cache
 from utils import log
 import json
-import redis
-
-
-cache = redis.StrictRedis()
 
 
 def current_user():
@@ -29,11 +26,8 @@ def current_user():
         return u
     else:
         user_id = json.loads(cache.get(session_id))
-        u = User.one(id=user_id)
-        if u is None:
-            return User.guest()
-        else:
-            return u
+        u = cached_user_id(user_id)
+        return u
 
 
 # def login_required(route_function):

@@ -147,13 +147,13 @@ class Model(object):
         s = '\n'.join(properties)
         return '< {}\n{} \n>\n'.format(classname, s)
 
-    def json(self):
-        """
-        返回当前 model 的字典表示
-        """
-        # copy 会复制一份新数据并返回
-        d = self.__dict__.copy()
-        return d
+    # def json(self):
+    #     """
+    #     返回当前 model 的字典表示
+    #     """
+    #     # copy 会复制一份新数据并返回
+    #     d = self.__dict__.copy()
+    #     return d
 
     def save(self):
         """
