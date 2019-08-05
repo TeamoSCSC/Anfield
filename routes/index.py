@@ -1,5 +1,7 @@
 import os
 import uuid
+from random import randint
+
 import flask
 from flask import (
     render_template,
@@ -13,11 +15,14 @@ from flask import (
 )
 
 from werkzeug.datastructures import FileStorage
+
+from celery_tasks import send_mail
+from config import admin_mail
 from models.user import User
 from routes.helper import (
     session_user,
     current_user,
-    login_required)
+    login_required, cache)
 
 
 """
@@ -42,23 +47,61 @@ def index():
 def rg():
     # u = current_user()
     # return render_template("index.html", user=u)
-    return render_template("register.html")
+    return render_template("rg.html")
+
+
+@main.route("/register/mail", methods=['POST'])
+def register_mail():
+    form = request.form
+    email = form['email']
+    u = User.one(email=email)
+    if u is None:
+        verify_code = ''.join([str(randint(0, 9)) for i in range(6)])
+        cache.set(email, verify_code, 600)
+        title = '欢迎注册Teamodou BBS'
+        content = '欢迎注册Teamodou BBS。您的验证码为{}，请在一分钟之内完成注册' \
+                  '如果不是您本人的操作，请无视本邮件。'.format(verify_code)
+        try:
+            send_mail(
+                subject=title,
+                author=admin_mail,
+                to=email,
+                content=content, )
+            flash('验证码已发送至您的邮箱，请查收!')
+            return redirect(url_for('index.register_view', email=email))
+
+        except ValueError:
+            flash('邮箱格式错误！')
+            return redirect(url_for('index.rg'))
+    else:
+        flash('该邮箱已被注册！')
+        return redirect(url_for('index.rg'))
+
+
+@main.route("/register/view", methods=['GET'])
+def register_view():
+    email = request.args['email']
+    return render_template("register.html", email=email)
 
 
 @main.route("/register", methods=['POST'])
 def register():
-    # form = request.args
-    form = request.form
-    # 用类函数来判断
-    u = User.register(form)
-    if u is not None:
-        session_id = session_user(u.id)
-        res = current_app.make_response(flask.redirect(url_for('homepage.index')))
-        res.set_cookie('cache_session', session_id)
-        return res
+    form = request.form.to_dict()
+    email = form['email']
+    verify_code = form.pop('verify_code', '')
+    if cache.exists(email) and int(cache.get(email)) == int(verify_code):
+        u = User.register(form)
+        if u is not None:
+            session_id = session_user(u.id)
+            res = current_app.make_response(flask.redirect(url_for('homepage.index')))
+            res.set_cookie('cache_session', session_id)
+            return res
+        else:
+            flash('用户名长度必须大于2或用户名已存在！')
+            return redirect(url_for('index.register_view', email=email))
     else:
-        flash('用户名长度必须大于2或用户名已存在！')
-        return redirect(url_for('index.rg'))
+        flash('验证码错误')
+        return redirect(url_for('index.register_view', email=email))
 
 
 @main.route("/login", methods=['POST'])

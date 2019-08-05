@@ -82,7 +82,6 @@
 
     <div id="content">
         <div class="panel">
-            <p class="controls" style="color:#a9302a">{{ get_flashed_messages()[0] }}</p>
             <div class="header">
                 <ul class="breadcrumb">
                     <li><a href="{{ url_for('index.index') }}">登录</a><span class="divider">/</span></li>
@@ -91,32 +90,17 @@
             </div>
             <div class="inner">
 
-                <form id="signin_form" class="form-horizontal" action="{{ url_for('.register') }}" method="post">
+                <form id="signin_form" class="form-horizontal" action="{{ url_for('index.register_mail') }}" method="post">
                     <div class="control-group">
-                        <label class="control-label">用户名</label>
+                        <label class="control-label">绑定邮箱</label>
                         <div class="controls">
-                            <input type="text" class="input-xlarge" name="username" required value="">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">密码</label>
-                        <div class="controls">
-                            <input type="text" class="input-xlarge" name="password" required value="">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">验证码</label>
-                        <div class="controls">
-                            <input type="text" class="input-xlarge" name="verify_code" required value="">
+                            <input type="text" class="input-xlarge" name="email" required value="">
                             <p class="input-xlarge" style="color:#a9302a">{{ get_flashed_messages()[0] }}</p>
-                        </div>
-                        <div class="controls">
-                            <input type="hidden" name="email" value="{{ email }}">
                         </div>
                     </div>
 
                     <div class="form-actions">
-                        <input type="submit" class="span-primary" value="注册">
+                        <input type="submit" class="span-primary" value="发送验证码">
                     </div>
                 </form>
 
