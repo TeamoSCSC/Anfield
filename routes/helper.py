@@ -15,6 +15,11 @@ from utils import log
 import json
 
 
+def guest_ip():
+    ip = request.headers['X-Forwarded-For']
+    return ip
+
+
 def current_user():
     session_id = request.cookies.get('cache_session', -1)
     log('session_id', session_id)

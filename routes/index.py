@@ -18,9 +18,11 @@ from werkzeug.datastructures import FileStorage
 
 from celery_tasks import send_mail
 from config import admin_mail
+from models.ip import get_ip
 from models.user import User
 from routes.helper import (
     session_user,
+    guest_ip,
     current_user,
     login_required,
 )
@@ -41,7 +43,10 @@ main = Blueprint('index', __name__)
 def index():
     # u = current_user()
     # return render_template("index.html", user=u)
-    return render_template("login.html")
+    ip = guest_ip()
+    row_ip_data = get_ip(ip).locate.split(':', 1)
+    ip_data = '访客来自：{}'.format(row_ip_data[1])
+    return render_template("login.html", ip=ip_data)
 
 
 @main.route("/rg")

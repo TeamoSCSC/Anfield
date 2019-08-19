@@ -8,7 +8,6 @@ from flask import (
     Blueprint,
     flash,
 )
-
 from models.message import Messages
 from models.user import User
 from routes.helper import (
